@@ -14,4 +14,4 @@ We welcome all **errors and feedback** as constructive contributions to refining
 
 Furthermore, it’s worth noting that the algorithms presented draw inspiration from two outstanding algorithmic textbooks, the images of which are provided below:
 
-<img width="677" alt="Capture d’écran 2024-04-10 à 16 36 49" src="https://github.com/Ncxs99/Data-Structures-And-Algorithms/assets/165078702/67360393-a0af-4682-a432-16a3289d9e06">
+<img width="200" alt="Capture d’écran 2024-04-10 à 16 36 49" src="https://github.com/Ncxs99/Data-Structures-And-Algorithms/assets/165078702/67360393-a0af-4682-a432-16a3289d9e06">
