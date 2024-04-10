@@ -5,7 +5,8 @@
 using namespace std ;
 
 // Class description:
-// This C++ class aims to implement, from scratch, essential methods for arrays in modern programming languages. Its primary objective is to delve deep into understanding how data structures and algorithms function in general.
+// This C++ class aims to implement, from scratch, essential methods for arrays in modern programming languages. 
+// Its primary objective is to delve deep into understanding how data structures and algorithms function in general.
 
 class Array
 {
@@ -57,8 +58,8 @@ class Array
     unique_ptr<Array> Intersection(Array *B); // Compute the mathematical intersection of two Arrays
     unique_ptr<Array> Difference(Array *B); // Compute the mathematical difference of two Arrays
     int MissingElementSorted(); // Check whether an element is missing or not in a sorted Array and display it
-    unique_ptr<Array> MissingMultipleSorted(); // Check for multiple missing elements and display them
-    unique_ptr<Array> MissingElementUnsorted(); // Find Multiple missing elements in an unsorted array and display them
+    unique_ptr<Array> MissingMultipleSorted(); // Check for multiple missing elements in a sorted Array and display them
+    unique_ptr<Array> MissingElementUnsorted(); // Find Multiple missing elements in an unsorted Array and display them
     friend ostream & operator<<(ostream&out, Array & arr); // Operator overloading for cout function
     void Display(); // Display the array
     
@@ -866,7 +867,7 @@ int main()
     
     unique_ptr<Array> unsortedmiss ; // Pointer on our Array
     unsortedmiss = arr.MissingElementUnsorted(); // Store all missing element in our Array
-    unsortedmiss->Display();
+    unsortedmiss->Display(); // Display the Array
     
     return 0 ;
 }
