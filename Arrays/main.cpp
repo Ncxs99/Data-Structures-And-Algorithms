@@ -30,9 +30,10 @@ class Array
     
     // Methods of our class
     void Create(int n); // Create an array
+    void FillIn(int x); // Fill all the Array with values x
     void Append(int x); // Add an element at the end of the Array
-    void Insert(int index, int x); // Insert an element at a given position in the array
-    void Delete(int index); // Delete an element at a given index in the array
+    void Insert(int index, int x); // Insert an element at a given position in the Array
+    void Delete(int index); // Delete an element at a given index in the Array
     int LinearSearch(int key); // LinearSearch of an element in the Array
     int ImprovedLinearSearch(int key); // ImprovedLinearSearch of an element in the Array
     int BinarySearch(int key); // Binary Search in of an element in the Array
@@ -55,8 +56,9 @@ class Array
     unique_ptr<Array> Union(Array *B); // Compute the mathematical union of two Arrays
     unique_ptr<Array> Intersection(Array *B); // Compute the mathematical intersection of two Arrays
     unique_ptr<Array> Difference(Array *B); // Compute the mathematical difference of two Arrays
-    int MissingElementSorted(); // Check wether an element is missing or not in a sorted Array and display it
+    int MissingElementSorted(); // Check whether an element is missing or not in a sorted Array and display it
     unique_ptr<Array> MissingMultipleSorted(); // Check for multiple missing elements and display them
+    unique_ptr<Array> MissingElementUnsorted(); // Find Multiple missing elements in an unsorted array and display them
     friend ostream & operator<<(ostream&out, Array & arr); // Operator overloading for cout function
     void Display(); // Display the array
     
@@ -131,6 +133,15 @@ void Array::Create(int n)
     }
     
 }
+
+
+//void Array::FillIn(int x)
+//{
+   // for(int i=0;i<length;i++)
+   // {
+       // A[i] = x ;
+   // }
+//}
 
 
 void Array::Append(int x)
@@ -731,6 +742,29 @@ unique_ptr<Array> Array::MissingMultipleSorted()
 }
 
 
+unique_ptr<Array> Array::MissingElementUnsorted()
+{
+    unique_ptr<Array> C (new Array(max()));
+    C->setLength(C->getSize());
+    unique_ptr<Array> D (new Array);
+    
+    for(int i=0;i<length;i++)
+    {
+        C->A[A[i]] ++ ;
+    }
+    
+    for(int i=min();i<C->length;i++)
+    {
+        if(C->A[i] == 0)
+        {
+            D->Append(i);
+        }
+    }
+    
+    return D ;
+}
+
+
 Array::~Array()
 {
     delete []A;
@@ -740,31 +774,31 @@ Array::~Array()
 
 int main()
 {
-    Array arr ; // Declaring the array
+    Array arr ; // Declaring the Array
     
-    arr.Create(5); // Create and fill in the array with 5 elements
+    arr.Create(10); // Create and fill in the Array with 5 elements
     
-    //arr.Append(6); // Add 6 at the end of the array
-    //arr.Append(7); // Add 7 at the end of the array
+    //arr.Append(6); // Add 6 at the end of the Array
+    //arr.Append(7); // Add 7 at the end of the Array
     
     arr.Insert(0, 15); // Insert element 15 at index 0
     
-    int a = arr.Get(4); // Get a particular value from the array
+    int a = arr.Get(4); // Get a particular value from the Array
     cout<<"The element in the position "<<4<<" is "<<a<<endl;
     
     int b = arr.max(); // Get maximum value
-    cout<<"The maximum element in the array is: "<<b<<endl;
+    cout<<"The maximum element in the Array is: "<<b<<endl;
     
-    int c = arr.sum(); // Get total sum of elements in the array
+    int c = arr.sum(); // Get total sum of elements in the Array
     cout<<"The total sum of elements in the table is: "<<c<<endl;
     
-    int d = arr.min(); // Get minimum value in the array
-    cout<<"The minimum element in the array is: "<<d<<endl;
+    int d = arr.min(); // Get minimum value in the Array
+    cout<<"The minimum element in the Array is: "<<d<<endl;
     
-    float e = arr.Avg(); // Get the average value in the array
+    float e = arr.Avg(); // Get the average value in the Array
     cout<<"The average of all elements is: "<<e<<endl;
     
-    //arr.Set(6, 9);  // Set a particular value in an array in a particular index with another value
+    //arr.Set(6, 9);  // Set a particular value in an Array in a particular index with another value
     
     arr.Delete(0); // Delete the element at index 0
     
@@ -774,61 +808,65 @@ int main()
     cout<<arr.BinarySearch(4)<<endl; // Search an element with binary search algorithm
     
     int l=0, h = arr.getLength()-1; // Parameter of recursive binary search
-    cout<<arr.RBinarySearch(l, h, 4)<<endl; // Search an element in array with recursive binary algorithm
+    cout<<arr.RBinarySearch(l, h, 4)<<endl; // Search an element in Array with recursive binary algorithm
     
-    //arr.Reverse(); // Reverse the array
-    //cout<<arr; // Display the reversed array with cout method
+    //arr.Reverse(); // Reverse the Array
+    //cout<<arr; // Display the reversed Array with cout method
     
-    //arr.LeftShift(); // Shift the array from the left
-    //cout<<arr; Display the shifted from the left array with cout method
+    //arr.LeftShift(); // Shift the Array from the left
+    //cout<<arr; Display the shifted from the left Array with cout method
     
-    //arr.RightShift(); // Shift the array from the right
-    //cout<<arr; // Display the shifted from the right array with cout method
+    //arr.RightShift(); // Shift the Array from the right
+    //cout<<arr; // Display the shifted from the right Array with cout method
     
-    //arr.LeftRotate(); // Rotate the array to the left
-    //cout<<arr; //Display the rotated array to the left with cout method
+    //arr.LeftRotate(); // Rotate the Array to the left
+    //cout<<arr; //Display the rotated Array to the left with cout method
     
-    //arr.RightRotate(); // Rotate the array to the right
-    //cout<<arr; //Display the rotated array to the right with cout method
+    //arr.RightRotate(); // Rotate the Array to the right
+    //cout<<arr; //Display the rotated Array to the right with cout method
     
 
-    //cout<<arr.IsSorted()<<endl;   //Check if the array is sorted
+    //cout<<arr.IsSorted()<<endl;   //Check if the Array is sorted
     
-    //arr.InsertSort(2); // Insert an element in a sorted array
-    //cout<<arr; //Display the sorted array in which we include an element
+    //arr.InsertSort(2); // Insert an element in a sorted Array
+    //cout<<arr; //Display the sorted Array in which we include an element
     
     //arr.NegleftPosRight(); // All negative numbers in left, all positive numbers in right
-    //cout<<arr; //Display the array with all negative numbers in left and all positive numbers in right
+    //cout<<arr; //Display the Array with all negative numbers in left and all positive numbers in right
     
-    Array arr2; // Declaring a second Array
+    //Array arr2; // Declaring a second Array
     
-    arr2.Create(5);  // Create a second array of size 5 !
+    //arr2.Create(5);  // Create a second Array of size 5 !
     
     //unique_ptr<Array> merge ; // Pointer on our Array
-    //merge = arr.Merge(&arr2); // Merge the first array arr with the second array arr2 -> store it in a pointer
-    //merge->Display(); // Use our Pointer to Display the array
+    //merge = arr.Merge(&arr2); // Merge the first Array arr with the second Array arr2 -> store it in a pointer
+    //merge->Display(); // Use our Pointer to Display the Array
     
     
     //unique_ptr<Array> Union ; // Pointer on our Array
-    //Union = arr.Union(&arr2); // Union of the first array arr with the second array arr2 -> store it in a pointer
-    //Union->Display(); // Use our Pointer to Display the array
+    //Union = arr.Union(&arr2); // Union of the first Array arr with the second Array arr2 -> store it in a pointer
+    //Union->Display(); // Use our Pointer to Display the Array
     
     
     //unique_ptr<Array> intersection; // Pointer on our Array
-    //intersection = arr.Intersection(&arr2); // Intersection of the first array arr with the second array arr2
-    //intersection->Display(); // Use our Pointer to Display() the array
+    //intersection = arr.Intersection(&arr2); // Intersection of the first Array arr with the second Array arr2
+    //intersection->Display(); // Use our Pointer to Display() the Array
 
     
     //unique_ptr<Array> difference ; // Pointer on our Array
-    //difference = arr.Difference(&arr2); // Difference of the first array arr with the second array arr2
+    //difference = arr.Difference(&arr2); // Difference of the first Array arr with the second Array arr2
     //difference->Display();
     
-    int f = arr.MissingElementSorted(); // Missing Element in a sorted array
-    cout<<"The missing element in the array is: "<<f<<endl;
+    //int f = arr.MissingElementSorted(); // Missing Element in a sorted Array
+    //cout<<"The missing element in the Array is: "<<f<<endl;
     
-    unique_ptr<Array> multimiss; // declare arr3 as a pointer to the array object
-    multimiss = arr.MissingMultipleSorted(); // Store all missing element in an array
-    multimiss->Display(); // Display the array
+    //unique_ptr<Array> multimiss; // Pointer on our Array
+    //multimiss = arr.MissingMultipleSorted(); // Store all missing element in an Array
+    //multimiss->Display(); // Display the Array
+    
+    unique_ptr<Array> unsortedmiss ; // Pointer on our Array
+    unsortedmiss = arr.MissingElementUnsorted(); // Store all missing element in our Array
+    unsortedmiss->Display();
     
     return 0 ;
 }
