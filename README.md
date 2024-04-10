@@ -6,10 +6,10 @@ By delving into these foundational concepts, we seek to **deepen our understandi
 
 Through **clear and accessible explanations**, we endeavor to illuminate the **inner workings** of these structures and algorithms, empowering both readers and ourselves to grasp how they are **utilized and implemented in contemporary programming languages.**
 
-Our goal is to equip ourselves with the **knowledge and insights** necessary to navigate complex programming challenges with confidence and proficiency.
+Our goal is to equip ourselves with the **knowledge and insights** necessary to navigate and understand algorithms and computer science in a **better fashion**
 
 By emphasizing **clarity and thoroughness**, this guide serves as a valuable resource for readers seeking to enhance their understanding of data structures and algorithms.
 
-We welcome all errors and feedback as constructive contributions to refining and improving this project, which is a personal endeavor aimed at fostering a robust understanding of data structures.
+We welcome all **errors and feedback** as constructive contributions to refining and improving this project, which is a **personal endeavor** aimed at fostering a robust understanding of data structures.
 
 Furthermore, it’s worth noting that the algorithms presented draw inspiration from two outstanding algorithmic textbooks, the images of which are provided below:
