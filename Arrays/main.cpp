@@ -64,8 +64,10 @@ class Array
     map<int,int> CountDuplicateSorted(); // Count all Duplicate elements in a sorted Array
     map<int,int> FindCountDupliSorted(); // Find and Count all Duplicate elements in a sorted Array
     map<int,int> FindCountDupliUnsorted(); // Find and Count all Duplicate elements in an unsorted Array
-    map<int,int> PairOfElementSumK(int k); // Find all pair of elements in the array whose the sum is equal to k
-    map<int,int> PaiofElementSumkBis(int k); // Find all pair of elements in tha array whose the sum is equal to k using another method
+    map<int,int> PairOfElementSumK(int k); // Find all pair of elements in the Array whose the sum is equal to k
+    map<int,int> PairOfElementSumkBis(int k); // Find all pair of elements in the Array whose the sum is equal to k using another method
+    map<int,int> PairOfElementSumSorted(int k); // Find all pair of elementsin the Array whose the sum is equal to k in a sorted Array
+    map<string,int> Min_Max(); // Find the minimum and maximum element of an Array in a single scan
     friend ostream & operator<<(ostream & out, Array & arr); // Operator overloading for cout function
     void Display(); // Display the array
     
@@ -871,7 +873,7 @@ map<int,int> Array::PairOfElementSumK(int k)
 
 
 
-map<int,int> Array::PaiofElementSumkBis(int k)
+map<int,int> Array::PairOfElementSumkBis(int k)
 {
     unique_ptr<Array> C (new Array(max()));
     C->setLength(C->getSize());
@@ -889,6 +891,67 @@ map<int,int> Array::PaiofElementSumkBis(int k)
     return m ;
 }
 
+
+map<int,int> Array::PairOfElementSumSorted(int k)
+{
+   if(IsSorted())
+   {
+       int i,j;
+       map<int,int> m;
+       i = 0;
+       j = length -1 ;
+       
+       while(i<j)
+       {
+           if(A[i]+A[j]==k)
+           {
+               m.insert(pair<int,int>(A[i],A[j]));
+               i ++ ;
+               j -- ;
+           }
+           else if(A[i]+A[j]<k)
+           {
+               i ++ ;
+           }
+           else
+           {
+               j -- ;
+           }
+       }
+       
+       return m ;
+   }
+    else
+    {
+        cout<<"Error ! The Array is not sorted ! "<<endl;
+        exit(0);
+    }
+}
+
+
+map<string,int> Array::Min_Max()
+{
+    map<string,int> m;
+    int maximum = A[0];
+    int minimum = A[0];
+    
+    for(int i=1;i<length;i++)
+    {
+        if(A[i]<minimum)
+        {
+            minimum = A[i];
+        }
+        else if(A[i]>maximum)
+        {
+            maximum = A[i];
+        }
+    }
+    
+    m.insert(pair<string,int>("Minimum",minimum));
+    m.insert(pair<string,int>("Maximum",maximum));
+    
+    return m;
+}
 
 
 Array::~Array()
@@ -1031,15 +1094,33 @@ int main()
       //  cout<<i->first<<" + "<<i->second<<" = "<<k<<endl; // Display the all pairs
     //}
     
-    map<int,int> m ;// Declare an STL Map
-    int k = 10 ; // Sum we want all the pair of elements in our Array be equal to
-    m = arr.PaiofElementSumkBis(10); // Store all pair of elements
-    map<int,int>::iterator i; // Initialise an map iterator
+   //map<int,int> m ;// Declare an STL Map
+    //int k = 10 ; // Sum we want all the pair of elements in our Array be equal to
+    //m = arr.PairOfElementSumkBis(10); // Store all pair of elements
+    //map<int,int>::iterator i; // Initialise an map iterator
+    //for(i = m.begin();i!=m.end();i++)  // Loop through the Map
+    //{
+       // cout<<i->first<<" + "<<i->second<<" = "<<k<<endl; // Display the all pairs
+    //}
+    
+    //map<int,int> m ;// Declare an STL Map
+    //int k = 10 ; // Sum we want all the pair of elements in our Array be equal to
+    //m = arr.PairOfElementSumSorted(k); // Store all pair of elements
+    //map<int,int>::iterator i; // Initialise an map iterator
+    //for(i = m.begin();i!=m.end();i++)  // Loop through the Map
+    //{
+      //  cout<<i->first<<" + "<<i->second<<" = "<<k<<endl; // Display the all pairs
+    //}
+    
+    map<string,int> m ;// Declare an STL Map
+    m = arr.Min_Max(); // Store both the minimum and maximum in our Map
+    map<string,int>::iterator i; // Initialise an Map iterator
     for(i = m.begin();i!=m.end();i++)  // Loop through the Map
     {
-        cout<<i->first<<" + "<<i->second<<" = "<<k<<endl; // Display the all pairs
+        cout<<i->first<<" : "<<i->second<<endl; // Display both the minimum and Maximum
     }
-    
+
+
     return 0 ;
 }
 
