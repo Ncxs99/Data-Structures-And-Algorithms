@@ -1,5 +1,5 @@
 # include <iostream>
-# include <cmath>
+# include <map>
 # include <algorithm>
 
 using namespace std ;
@@ -50,7 +50,7 @@ class Array
     void RightShift(); // Shift all the elements of the Array from the right
     void LeftRotate(); // Rotate all the elements of the Array from the left
     void RightRotate(); // Rotate all the elements of the Array from the right
-    bool IsSorted(); // Check wether our Array is sorted or not
+    bool IsSorted(); // Check whether our Array is sorted or not
     void InsertSort(int x); // Insert an element in a sorted Array
     void NegleftPosRight(); // Sort all negative numbers of the Array in the left, all positive numbers in the right
     unique_ptr<Array> Merge(Array *B); // Merge two sorted Arrays and returns a sorted Array
@@ -59,14 +59,19 @@ class Array
     unique_ptr<Array> Difference(Array *B); // Compute the mathematical difference of two Arrays
     int MissingElementSorted(); // Check whether an element is missing or not in a sorted Array and display it
     unique_ptr<Array> MissingMultipleSorted(); // Check for multiple missing elements in a sorted Array and display them
-    unique_ptr<Array> MissingElementUnsorted(); // Find Multiple missing elements in an unsorted Array and display them
-    friend ostream & operator<<(ostream&out, Array & arr); // Operator overloading for cout function
+    unique_ptr<Array> MissingElementUnsorted(); // Find Multiple missing elements in an unsorted Array
+    unique_ptr<Array> FindingDuplicateSorted(); // Find and return all Duplicate elements in a sorted Array
+    map<int,int> CountDuplicateSorted(); // Count all Duplicate elements in a sorted Array
+    map<int,int> FindCountDupliSorted(); // Find and Count all Duplicate elements in a sorted Array
+    map<int,int> FindCountDupliUnsorted(); // Find and Count all Duplicate elements in an unsorted Array
+    map<int,int> PairOfElementSumK(int k); // Find all pair of elements in the array whose the sum is equal to k
+    map<int,int> PaiofElementSumkBis(int k); // Find all pair of elements in tha array whose the sum is equal to k using another method
+    friend ostream & operator<<(ostream & out, Array & arr); // Operator overloading for cout function
     void Display(); // Display the array
     
     // Destructors
     ~Array();
 };
-
 
 Array::Array()
 {
@@ -136,13 +141,13 @@ void Array::Create(int n)
 }
 
 
-//void Array::FillIn(int x)
-//{
-   // for(int i=0;i<length;i++)
-   // {
-       // A[i] = x ;
-   // }
-//}
+void Array::FillIn(int x)
+{
+    for(int i=0;i<length;i++)
+    {
+        A[i] = x ;
+    }
+}
 
 
 void Array::Append(int x)
@@ -766,6 +771,126 @@ unique_ptr<Array> Array::MissingElementUnsorted()
 }
 
 
+unique_ptr<Array> Array::FindingDuplicateSorted()
+{
+    if(IsSorted())
+    {
+        int lastDuplicate = 0 ;
+        
+        unique_ptr<Array> C (new Array(length));
+        
+        for(int i=0;i<length;i++)
+        {
+            if(A[i]==A[i+1] && A[i] != lastDuplicate)
+            {
+                C->Append(A[i]);
+                lastDuplicate = A[i];
+            }
+        }
+        
+        return C ;
+    }
+    else
+    {
+        cout<<"Error ! Array non sorted !"<<endl;
+        exit(0);
+    }
+}
+
+
+map<int,int> Array::CountDuplicateSorted()
+{
+    map<int,int> m ;
+    for(int i=0;i<length-1;i++)
+    {
+        if(A[i]==A[i+1])
+        {
+            int j = i + 1 ;
+            while(A[i]==A[j])
+            {
+                j ++ ;
+            }
+            m.insert(pair<int,int>(A[i],j-i));
+            i = j - 1 ;
+        }
+    }
+    
+    return m ;
+}
+
+
+map<int,int> Array::FindCountDupliSorted()
+{
+    map<int,int> m;
+    unique_ptr<Array> C (new Array(max()));
+    C->setLength(C->getSize());
+    
+    for(int i=0; i<length; i++)
+    {
+        C->A[A[i]] ++ ;
+    }
+    for(int i=0;i<=C->length;i++)
+    {
+        if(C->A[i]>1)
+        {
+            m.insert(pair<int,int>(i,C->A[i]));
+        }
+    }
+    
+    return m ;
+    
+}
+
+
+map<int,int> Array::FindCountDupliUnsorted()
+{
+    map<int,int> m ;
+    
+    m = FindCountDupliSorted();
+    
+    return m ;
+}
+
+
+map<int,int> Array::PairOfElementSumK(int k)
+{
+    map<int,int> m;
+    for(int i=0;i<length-1;i++)
+    {
+        for(int j=i+1;j<length;j++)
+        {
+            if(A[i]+A[j]==k)
+            {
+                m.insert(pair<int,int>(A[i],A[j]));
+            }
+        }
+    }
+    
+    return m ;
+}
+
+
+
+map<int,int> Array::PaiofElementSumkBis(int k)
+{
+    unique_ptr<Array> C (new Array(max()));
+    C->setLength(C->getSize());
+    map<int,int> m ;
+    
+    for(int i=0;i<length;i++)
+    {
+        if(C->A[k-A[i]] != 0)
+        {
+            m.insert(pair<int,int>(A[i],k-A[i]));
+        }
+        C->A[A[i]] ++ ;
+    }
+    
+    return m ;
+}
+
+
+
 Array::~Array()
 {
     delete []A;
@@ -865,9 +990,55 @@ int main()
     //multimiss = arr.MissingMultipleSorted(); // Store all missing element in an Array
     //multimiss->Display(); // Display the Array
     
-    unique_ptr<Array> unsortedmiss ; // Pointer on our Array
-    unsortedmiss = arr.MissingElementUnsorted(); // Store all missing element in our Array
-    unsortedmiss->Display(); // Display the Array
+    //unique_ptr<Array> unsortedmiss ; // Pointer on our Array
+    //unsortedmiss = arr.MissingElementUnsorted(); // Store all missing element in our Array
+    //unsortedmiss->Display(); // Display the Array
+    
+    //unique_ptr<Array> findupli ; // Pointer on our Array
+    //findupli = arr.FindingDuplicateSorted(); // Store all duplicate elements in our Array
+    //findupli->Display(); // Display the Array
+    
+    //map<int,int> m ; // Declare an STL Map
+    //m = arr.CountDuplicateSorted(); // Store all duplicate elements and their occurences in our Map
+    //map<int,int>::iterator i; // Initialise an map iterator
+    //for(i = m.begin();i!=m.end();i++)  // Loop through the Map
+    //{
+       // cout<<i->first<<" Appears "<<i->second<<" times "<<endl; // Display the all occurences
+    //}
+    
+    //map<int,int> m ; // Declare an STL Map
+    //m = arr.FindCountDupliSorted(); // Store all duplicate elements and their occurences in our Map
+    //map<int,int>::iterator i; // Initialise an map iterator
+    //for(i = m.begin();i!=m.end();i++)  // Loop through the Map
+    //{
+      //  cout<<i->first<<" Appears "<<i->second<<" times "<<endl; // Display the all occurences
+    //}
+    
+    //map<int,int> m ; // Declare an STL Map
+    //m = arr.FindCountDupliUnsorted(); // Store all duplicate elements and their occurences in our Map
+    //map<int,int>::iterator i; // Initialise an map iterator
+    //for(i = m.begin();i!=m.end();i++)  // Loop through the Map
+    //{
+      //  cout<<i->first<<" Appears "<<i->second<<" times "<<endl; // Display the all occurences
+    //}
+    
+    //map<int,int> m ;// Declare an STL Map
+    //int k = 10 ; // Sum we want all the pair of elements in our Array be equal to
+    //m = arr.PairOfElementSumK(10); // Store all pair of elements
+    //map<int,int>::iterator i; // Initialise an map iterator
+    //for(i = m.begin();i!=m.end();i++)  // Loop through the Map
+    //{
+      //  cout<<i->first<<" + "<<i->second<<" = "<<k<<endl; // Display the all pairs
+    //}
+    
+    map<int,int> m ;// Declare an STL Map
+    int k = 10 ; // Sum we want all the pair of elements in our Array be equal to
+    m = arr.PaiofElementSumkBis(10); // Store all pair of elements
+    map<int,int>::iterator i; // Initialise an map iterator
+    for(i = m.begin();i!=m.end();i++)  // Loop through the Map
+    {
+        cout<<i->first<<" + "<<i->second<<" = "<<k<<endl; // Display the all pairs
+    }
     
     return 0 ;
 }
