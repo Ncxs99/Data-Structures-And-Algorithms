@@ -1,6 +1,6 @@
 # Description 
 
-The `Array` class is a class we've implemented from scratch as a **personnal project** in order to understand arrays as abstract data types : That is, arrays are represented as **data structures** and we coded some **set of operations** on that data structures. 
+The `Array` class is a class we've implemented from scratch as a **personnal project** in order to understand arrays as abstract data type : That is, arrays are represented as a **data structure** and we coded some **set of operations** on that data structure. 
 
 It provides **fundamental tool** designed to **facilitate array manipulation tasks within C++ programs**. It offers a variety of essential functionalities, ranging from basic operations like **array creation** and **element insertion** to more advanced tasks such as **finding and counting duplicates, merging two arrays or displaying missing elements in an array**.
 
