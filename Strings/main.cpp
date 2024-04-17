@@ -4,6 +4,11 @@
 
 using namespace std ;
 
+// Class description :
+// This String class implements from scratch some simple strings functions. 
+// The main goal is to see how some classical and important algorithms of strings are currently implemented in modern programming languages
+
+
 class String
 {
     private :
